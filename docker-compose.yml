@@ -7,9 +7,15 @@ services:
       context: ./nginx
     ports:
       - 80:80
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INIT_DB_ROOT_USERNAME: root
+      MONGO_INIT_DB_ROOT_PASSWORD: example
   node:
     build:
       dockerfile: Dockerfile.dev
       context: ./node
-    ports:
-      - 5000:5000
+    environment:
+      - TEST_VAL=test

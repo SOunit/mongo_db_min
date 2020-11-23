@@ -1,8 +1,21 @@
 version: '3'
 services:
   nginx:
+    restart: always
     build:
       dockerfile: Dockerfile.dev
       context: ./nginx
     ports:
       - 80:80
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INIT_DB_ROOT_USERNAME: root
+      MONGO_INIT_DB_ROOT_PASSWORD: example
+  node:
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./node
+    environment:
+      - TEST_VAL=test
